@@ -61,7 +61,11 @@
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
     }
     .logo-wrap { display: flex; align-items: center; }
-    .logo-img { height: 40px; width: auto; display: block; border-radius: 4px; }
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400;
+      letter-spacing: 0.3em; color: var(--navy);
+    }
     .logo-sub {
       font-size: 10px; letter-spacing: 0.25em;
       color: var(--gray); font-weight: 300;
@@ -209,6 +213,7 @@
       cursor: pointer;
       transition: all 0.25s ease;
       background: transparent;
+      user-select: none;
     }
     .quiz-option:hover {
       border-color: var(--gold-light);
@@ -239,10 +244,13 @@
     }
     .quiz-error {
       display: none; font-size: 11px;
-      color: var(--error); margin-top: 6px; letter-spacing: 0.04em;
+      color: var(--error); margin-top: 8px; letter-spacing: 0.04em;
     }
     .quiz-item.has-error .quiz-error { display: block; }
-    .quiz-item.has-error .quiz-options { outline: 1px solid rgba(176,58,46,0.25); }
+    .quiz-item.has-error .quiz-options {
+      border: 1px solid rgba(176,58,46,0.3);
+      padding: 4px;
+    }
 
     /* BUTTON */
     .btn-wrap {
@@ -327,7 +335,7 @@
 
   <header class="header">
     <div class="logo-wrap">
-      <img class="logo-img" src="data:image/jpeg;base64,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" alt="ALUXE">
+      <span class="logo-text">ALUXE 集團</span>
     </div>
     <span class="logo-sub">人才招募</span>
   </header>
@@ -427,87 +435,77 @@
 
       <div class="quiz-item" id="quiz-1">
         <p class="quiz-q"><span class="q-num">01 —</span>門市剛開店，您正在整理陳列，這時走進一位看起來有些猶豫、四處張望的客人，您會？</p>
-        <div class="quiz-options">
-          <label class="quiz-option" onclick="selectOption(this,'q1')">
-            <input type="radio" name="q1" value="A">
+        <div class="quiz-options" id="opts-q1">
+          <div class="quiz-option" data-name="q1" data-value="A">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">放下手邊工作，主動走過去打招呼問需求</span>
-          </label>
-          <label class="quiz-option" onclick="selectOption(this,'q1')">
-            <input type="radio" name="q1" value="B">
+          </div>
+          <div class="quiz-option" data-name="q1" data-value="B">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">先繼續整理，保持微笑目光接觸，等對方有需要再上前</span>
-          </label>
+          </div>
         </div>
-        <div class="quiz-error" id="err-q1">請選擇一個選項</div>
+        <div class="quiz-error" id="err-q1">⚠ 此題為必填，請選擇一個選項</div>
       </div>
 
       <div class="quiz-item" id="quiz-2">
         <p class="quiz-q"><span class="q-num">02 —</span>店長交代您負責一項新的陳列任務，但沒有給詳細說明，您會？</p>
-        <div class="quiz-options">
-          <label class="quiz-option" onclick="selectOption(this,'q2')">
-            <input type="radio" name="q2" value="A">
+        <div class="quiz-options" id="opts-q2">
+          <div class="quiz-option" data-name="q2" data-value="A">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">請店長給我具體的步驟或範例，確認清楚再執行</span>
-          </label>
-          <label class="quiz-option" onclick="selectOption(this,'q2')">
-            <input type="radio" name="q2" value="B">
+          </div>
+          <div class="quiz-option" data-name="q2" data-value="B">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">根據品牌風格自己發揮，做完再請店長確認調整</span>
-          </label>
+          </div>
         </div>
-        <div class="quiz-error" id="err-q2">請選擇一個選項</div>
+        <div class="quiz-error" id="err-q2">⚠ 此題為必填，請選擇一個選項</div>
       </div>
 
       <div class="quiz-item" id="quiz-3">
         <p class="quiz-q"><span class="q-num">03 —</span>一位客人因為等待時間過長而情緒激動地抱怨，您的第一句話會是？</p>
-        <div class="quiz-options">
-          <label class="quiz-option" onclick="selectOption(this,'q3')">
-            <input type="radio" name="q3" value="A">
+        <div class="quiz-options" id="opts-q3">
+          <div class="quiz-option" data-name="q3" data-value="A">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">「不好意思，目前等待時間約 XX 分鐘，我幫您安排…」</span>
-          </label>
-          <label class="quiz-option" onclick="selectOption(this,'q3')">
-            <input type="radio" name="q3" value="B">
+          </div>
+          <div class="quiz-option" data-name="q3" data-value="B">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">「非常抱歉讓您久等了，我完全理解您的心情…」</span>
-          </label>
+          </div>
         </div>
-        <div class="quiz-error" id="err-q3">請選擇一個選項</div>
+        <div class="quiz-error" id="err-q3">⚠ 此題為必填，請選擇一個選項</div>
       </div>
 
       <div class="quiz-item" id="quiz-4">
         <p class="quiz-q"><span class="q-num">04 —</span>活動前一天，店長臨時通知明天需要提早一小時到班支援，您的感受是？</p>
-        <div class="quiz-options">
-          <label class="quiz-option" onclick="selectOption(this,'q4')">
-            <input type="radio" name="q4" value="A">
+        <div class="quiz-options" id="opts-q4">
+          <div class="quiz-option" data-name="q4" data-value="A">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">有點困擾，因為我已經規劃好明天的時間了</span>
-          </label>
-          <label class="quiz-option" onclick="selectOption(this,'q4')">
-            <input type="radio" name="q4" value="B">
+          </div>
+          <div class="quiz-option" data-name="q4" data-value="B">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">沒問題，臨時調整對我來說還好，彈性應對就好</span>
-          </label>
+          </div>
         </div>
-        <div class="quiz-error" id="err-q4">請選擇一個選項</div>
+        <div class="quiz-error" id="err-q4">⚠ 此題為必填，請選擇一個選項</div>
       </div>
 
       <div class="quiz-item" id="quiz-5">
         <p class="quiz-q"><span class="q-num">05 —</span>忙碌的一天結束後，同事邀請大家一起去吃飯聊天，您通常會？</p>
-        <div class="quiz-options">
-          <label class="quiz-option" onclick="selectOption(this,'q5')">
-            <input type="radio" name="q5" value="A">
+        <div class="quiz-options" id="opts-q5">
+          <div class="quiz-option" data-name="q5" data-value="A">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">很樂意！和大家聚一聚反而讓我放鬆有活力</span>
-          </label>
-          <label class="quiz-option" onclick="selectOption(this,'q5')">
-            <input type="radio" name="q5" value="B">
+          </div>
+          <div class="quiz-option" data-name="q5" data-value="B">
             <div class="quiz-radio-mark"></div>
             <span class="quiz-option-text">謝謝邀請，但我更想一個人安靜休息，恢復能量</span>
-          </label>
+          </div>
         </div>
-        <div class="quiz-error" id="err-q5">請選擇一個選項</div>
+        <div class="quiz-error" id="err-q5">⚠ 此題為必填，請選擇一個選項</div>
       </div>
 
     </div>
@@ -542,18 +540,28 @@
     // 🔒 設定區（請修改以下兩處）
     // =============================
     const SECRET_TOKEN    = 'aluxe2026hr';
-    const APPS_SCRIPT_URL = https://script.google.com/macros/s/AKfycbwgufr_IqJzlMeVXZRAuLz_fuK3GhOCrAPLM1Ko8mP6vpmlU-y_4ZAW830Ut4xVfplf/exec; // ⚠️ 貼上 Apps Script 部署網址
+    const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL'; // ⚠️ 貼上 Apps Script 部署網址
     const LINE_URL        = 'https://lin.ee/9MrIQWM'; // ✅ 已設定
     // =============================
 
-    function selectOption(el, name) {
-      el.closest('.quiz-options').querySelectorAll('.quiz-option')
-        .forEach(s => s.classList.remove('selected'));
-      el.classList.add('selected');
-      el.querySelector('input[type="radio"]').checked = true;
-      const qNum = name.replace('q','');
-      document.getElementById('quiz-' + qNum).classList.remove('has-error');
-    }
+    // 儲存各題答案
+    const quizAnswers = { q1: '', q2: '', q3: '', q4: '', q5: '' };
+
+    // 綁定選項點擊事件
+    document.querySelectorAll('.quiz-option').forEach(function(el) {
+      el.addEventListener('click', function() {
+        const name  = this.dataset.name;
+        const value = this.dataset.value;
+        // 清除同題其他選項
+        document.querySelectorAll('.quiz-option[data-name="' + name + '"]')
+          .forEach(function(s) { s.classList.remove('selected'); });
+        this.classList.add('selected');
+        quizAnswers[name] = value;
+        // 清除錯誤狀態
+        const qNum = name.replace('q', '');
+        document.getElementById('quiz-' + qNum).classList.remove('has-error');
+      });
+    });
 
     function showError(groupId, show) {
       document.getElementById(groupId).classList.toggle('has-error', show);
@@ -569,18 +577,18 @@
 
       if (!name) {
         showError('group-name', true);
-        document.getElementById('err-name').textContent = '請填寫姓名';
+        document.getElementById('err-name').textContent = '⚠ 請填寫姓名';
         valid = false;
       } else { showError('group-name', false); }
 
       const phoneRegex = /^09\d{8}$/;
       if (!phone) {
         showError('group-phone', true);
-        document.getElementById('err-phone').textContent = '請填寫手機號碼';
+        document.getElementById('err-phone').textContent = '⚠ 請填寫手機號碼';
         valid = false;
       } else if (!phoneRegex.test(phone)) {
         showError('group-phone', true);
-        document.getElementById('err-phone').textContent = '格式錯誤，請填寫 09 開頭共 10 碼';
+        document.getElementById('err-phone').textContent = '⚠ 格式錯誤，請填寫 09 開頭共 10 碼';
         valid = false;
       } else { showError('group-phone', false); }
 
@@ -590,11 +598,14 @@
       if (!pos) { showError('group-position', true); valid = false; }
       else { showError('group-position', false); }
 
-      ['q1','q2','q3','q4','q5'].forEach((q, i) => {
-        const checked = document.querySelector(`input[name="${q}"]:checked`);
-        const el = document.getElementById('quiz-' + (i+1));
-        if (!checked) { el.classList.add('has-error'); valid = false; }
-        else { el.classList.remove('has-error'); }
+      ['q1','q2','q3','q4','q5'].forEach(function(q, i) {
+        const el = document.getElementById('quiz-' + (i + 1));
+        if (!quizAnswers[q]) {
+          el.classList.add('has-error');
+          valid = false;
+        } else {
+          el.classList.remove('has-error');
+        }
       });
 
       return valid;
@@ -602,8 +613,11 @@
 
     async function submitForm() {
       if (!validate()) {
+        // 捲動到第一個錯誤並停留在中央
         const firstErr = document.querySelector('.has-error');
-        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (firstErr) {
+          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
         return;
       }
 
@@ -614,21 +628,19 @@
       btnText.style.display = 'none';
       spinner.style.display = 'block';
 
-      const getQ = n => {
-        const el = document.querySelector(`input[name="${n}"]:checked`);
-        return el ? el.value : '';
-      };
-
       const payload = {
-        token: SECRET_TOKEN,
+        token:       SECRET_TOKEN,
         name:        document.getElementById('name').value.trim(),
         phone:       document.getElementById('phone').value.trim(),
         store:       document.getElementById('store').value,
         position:    document.getElementById('position').value,
         current_job: document.getElementById('current_job').value.trim(),
         note:        document.getElementById('note').value.trim(),
-        q1: getQ('q1'), q2: getQ('q2'), q3: getQ('q3'),
-        q4: getQ('q4'), q5: getQ('q5')
+        q1: quizAnswers.q1,
+        q2: quizAnswers.q2,
+        q3: quizAnswers.q3,
+        q4: quizAnswers.q4,
+        q5: quizAnswers.q5
       };
 
       try {
@@ -641,14 +653,15 @@
       document.getElementById('success').classList.add('show');
       let count = 3;
       const countEl = document.getElementById('countdown');
-      const timer = setInterval(() => {
+      const timer = setInterval(function() {
         count--;
         countEl.textContent = count + ' 秒後自動跳轉';
         if (count <= 0) { clearInterval(timer); window.location.href = LINE_URL; }
       }, 1000);
     }
 
-    ['name','phone','store','position'].forEach(id => {
+    // 即時清除基本欄位錯誤
+    ['name','phone','store','position'].forEach(function(id) {
       const el = document.getElementById(id);
       if (el) {
         el.addEventListener('input',  validate);
