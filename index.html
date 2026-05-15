@@ -134,18 +134,27 @@
     .form-group:nth-child(5)  { animation-delay: 0.25s; }
     .form-group:nth-child(6)  { animation-delay: 0.30s; }
     .form-group:nth-child(7)  { animation-delay: 0.35s; }
+    .form-group:nth-child(8)  { animation-delay: 0.40s; }
 
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    label {
+    .field-label {
       display: block;
       font-size: 10px; letter-spacing: 0.3em;
       color: var(--gold); text-transform: uppercase;
       margin-bottom: 10px; font-weight: 300;
     }
-    label .required { color: var(--error); margin-left: 3px; }
+    .field-label .required { color: var(--error); margin-left: 3px; }
 
-    input, select, textarea {
+    .field-question {
+      display: block;
+      font-size: 10px; letter-spacing: 0.3em;
+      color: var(--gold); text-transform: uppercase;
+      margin-bottom: 10px; font-weight: 300;
+    }
+    .field-question .required { color: var(--error); margin-left: 3px; font-size: 10px; }
+
+    input[type="text"], input[type="tel"], select, textarea {
       width: 100%; background: transparent;
       border: none; border-bottom: 1px solid var(--gray-light);
       padding: 11px 0;
@@ -156,8 +165,10 @@
       -webkit-appearance: none; appearance: none;
       letter-spacing: 0.04em;
     }
-    input::placeholder, textarea::placeholder { color: #C8C4BE; font-size: 13px; }
-    input:focus, select:focus, textarea:focus { border-bottom-color: var(--gold); }
+    input[type="text"]::placeholder, input[type="tel"]::placeholder,
+    textarea::placeholder { color: #C8C4BE; font-size: 13px; }
+    input[type="text"]:focus, input[type="tel"]:focus,
+    select:focus, textarea:focus { border-bottom-color: var(--gold); }
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' stroke='%23C9A96E' stroke-width='1.4' fill='none'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
@@ -175,95 +186,109 @@
     .form-group.has-error select,
     .form-group.has-error textarea { border-bottom-color: var(--error); }
     .form-group.has-error .error-msg { display: block; }
+    .form-group.has-error .checkbox-group { border: 1px solid rgba(176,58,46,0.3); padding: 8px; }
 
-    /* QUIZ */
-    .quiz-intro {
-      font-size: 12.5px; color: var(--gray);
-      line-height: 1.9; letter-spacing: 0.03em;
-      margin-bottom: 28px;
-      padding: 16px 20px;
-      border-left: 2px solid var(--gold-light);
-      background: rgba(201,169,110,0.04);
+    /* CHECKBOX GROUP */
+    .checkbox-group {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 4px;
     }
-    .quiz-item {
-      margin-bottom: 32px;
-      opacity: 0; transform: translateY(12px);
-      animation: fadeUp 0.5s ease forwards;
-    }
-    .quiz-item:nth-child(1) { animation-delay: 0.5s; }
-    .quiz-item:nth-child(2) { animation-delay: 0.6s; }
-    .quiz-item:nth-child(3) { animation-delay: 0.7s; }
-    .quiz-item:nth-child(4) { animation-delay: 0.8s; }
-    .quiz-item:nth-child(5) { animation-delay: 0.9s; }
-
-    .quiz-q {
-      font-size: 13px; color: var(--navy);
-      line-height: 1.85; letter-spacing: 0.03em;
-      margin-bottom: 14px; font-weight: 400;
-    }
-    .quiz-q .q-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; color: var(--gold); margin-right: 6px;
-    }
-    .quiz-options { display: flex; flex-direction: column; gap: 10px; }
-    .quiz-option {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 12px 16px;
+    .checkbox-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
       border: 1px solid var(--gray-light);
       cursor: pointer;
       transition: all 0.25s ease;
-      background: transparent;
       user-select: none;
     }
-    .quiz-option:hover {
+    .checkbox-item:hover {
       border-color: var(--gold-light);
       background: rgba(201,169,110,0.04);
     }
-    .quiz-option input[type="radio"] { display: none; }
-    .quiz-option.selected {
+    .checkbox-item.checked {
       border-color: var(--gold);
       background: rgba(201,169,110,0.08);
     }
-    .quiz-radio-mark {
+    .checkbox-mark {
       width: 16px; height: 16px; flex-shrink: 0;
-      border: 1px solid var(--gray-light); border-radius: 50%;
-      margin-top: 2px;
+      border: 1px solid var(--gray-light);
+      border-radius: 2px;
       transition: all 0.25s ease;
       display: flex; align-items: center; justify-content: center;
     }
-    .quiz-option.selected .quiz-radio-mark {
+    .checkbox-item.checked .checkbox-mark {
       border-color: var(--gold); background: var(--gold);
     }
-    .quiz-option.selected .quiz-radio-mark::after {
+    .checkbox-item.checked .checkbox-mark::after {
+      content: '✓'; color: white; font-size: 10px; line-height: 1;
+    }
+    .checkbox-text {
+      font-size: 13px; color: var(--navy);
+      line-height: 1.6; letter-spacing: 0.03em; font-weight: 300;
+    }
+    .other-input {
+      width: 100%; background: transparent;
+      border: none; border-bottom: 1px solid var(--gray-light);
+      padding: 6px 0; margin-top: 6px; margin-left: 28px;
+      width: calc(100% - 28px);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px; color: var(--navy); outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .other-input:focus { border-bottom-color: var(--gold); }
+    .other-input::placeholder { color: #C8C4BE; }
+
+    /* SINGLE SELECT (radio style) */
+    .radio-group {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-top: 4px;
+    }
+    .radio-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--gray-light);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      user-select: none;
+    }
+    .radio-item:hover {
+      border-color: var(--gold-light);
+      background: rgba(201,169,110,0.04);
+    }
+    .radio-item.selected {
+      border-color: var(--gold);
+      background: rgba(201,169,110,0.08);
+    }
+    .radio-mark {
+      width: 16px; height: 16px; flex-shrink: 0;
+      border: 1px solid var(--gray-light); border-radius: 50%;
+      transition: all 0.25s ease;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .radio-item.selected .radio-mark {
+      border-color: var(--gold); background: var(--gold);
+    }
+    .radio-item.selected .radio-mark::after {
       content: ''; width: 6px; height: 6px;
       background: white; border-radius: 50%;
     }
-    .quiz-option-text {
+    .radio-text {
       font-size: 13px; color: var(--navy);
-      line-height: 1.75; letter-spacing: 0.03em; font-weight: 300;
-    }
-    .quiz-error {
-      display: none; font-size: 11px;
-      color: var(--error); margin-top: 8px; letter-spacing: 0.04em;
-    }
-    .quiz-item.has-error .quiz-error { display: block; }
-    .quiz-item.has-error .quiz-options {
-      border: 1px solid rgba(176,58,46,0.3);
-      padding: 4px;
+      line-height: 1.6; letter-spacing: 0.03em; font-weight: 300;
     }
 
     /* BUTTON */
     .btn-wrap {
       margin-top: 52px; text-align: center;
-      opacity: 0; animation: fadeUp 0.5s ease 1.0s forwards;
+      opacity: 0; animation: fadeUp 0.5s ease 0.8s forwards;
     }
     .btn-submit {
       position: relative; display: inline-block;
-      padding: 17px 68px;
+      padding: 17px 52px;
       background: var(--navy); color: var(--gold-light);
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Noto Serif TC', serif;
       font-size: 15px; font-weight: 300;
-      letter-spacing: 0.45em; text-transform: uppercase;
+      letter-spacing: 0.2em;
       border: 1px solid var(--navy); cursor: pointer;
       transition: all 0.4s ease; overflow: hidden;
     }
@@ -327,7 +352,7 @@
       .header { padding: 24px 20px; }
       .hero { padding: 44px 20px 32px; }
       .form-container { padding: 36px 20px 100px; }
-      .logo-text { font-size: 22px; }
+      .logo-text { font-size: 20px; }
     }
   </style>
 </head>
@@ -345,9 +370,10 @@
     <h1 class="hero-title">We <em>Want</em> You</h1>
     <div class="ornament"><div class="ornament-diamond"></div></div>
     <p class="hero-desc">
-      很高興您對 ALUXE 感興趣！✨<br>
-      請填寫以下簡短資料，完成後將自動引導您加入我們的 LINE 官方帳號，<br>
-      我們的 HR 夥伴將盡快與您聯繫，期待與您相識 🌿
+      歡迎來到 ALUXE！🌿<br>
+      很開心你對我們感興趣，能與你相遇真的很棒！<br>
+      請填寫以下簡短資料，完成後將自動帶你加入 LINE 官方帳號，<br>
+      HR 夥伴會盡快與你聯繫～我們迫不及待想認識你！✨
     </p>
   </section>
 
@@ -355,180 +381,157 @@
 
     <div class="section-title">基本資料</div>
 
+    <!-- 姓名 -->
     <div class="form-group" id="group-name">
-      <label>姓名 <span class="required">*</span></label>
+      <span class="field-label">姓名 <span class="required">*</span></span>
       <input type="text" id="name" placeholder="請輸入您的姓名" autocomplete="name">
-      <div class="error-msg" id="err-name">請填寫姓名</div>
+      <div class="error-msg" id="err-name">⚠ 請填寫姓名</div>
     </div>
 
+    <!-- 手機 -->
     <div class="form-group" id="group-phone">
-      <label>手機號碼 <span class="required">*</span></label>
+      <span class="field-label">手機號碼 <span class="required">*</span></span>
       <input type="tel" id="phone" placeholder="09XXXXXXXX" autocomplete="tel" maxlength="10">
-      <div class="error-msg" id="err-phone">請填寫正確手機號碼</div>
+      <div class="error-msg" id="err-phone">⚠ 請填寫正確手機號碼</div>
     </div>
 
-    <div class="form-group">
-      <label>目前職業</label>
-      <input type="text" id="current_job" placeholder="目前任職公司 / 職稱（選填）">
+    <!-- 目前職業 -->
+    <div class="form-group" id="group-current-job">
+      <span class="field-question">目前的你，從事什麼工作呢？ <span class="required">*</span></span>
+      <input type="text" id="current_job" placeholder="請填寫目前職業 / 職稱">
+      <div class="error-msg" id="err-current-job">⚠ 請填寫目前職業</div>
     </div>
 
-    <div class="section-title">應徵資訊</div>
+    <div class="section-title">讓我們可以更了解你</div>
 
+    <!-- 三個形容詞（必填，第一題） -->
+    <div class="form-group" id="group-adjective">
+      <span class="field-question">用三個形容詞描述一下你自己吧！讓我們更認識你 <span class="required">*</span></span>
+      <input type="text" id="adjective" placeholder="例如：熱情、細心、有創意">
+      <div class="error-msg" id="err-adjective">⚠ 請填寫三個形容詞</div>
+    </div>
+
+    <!-- 緣分來源（複選，第二題） -->
+    <div class="form-group" id="group-source">
+      <span class="field-question">你和 ALUXE 的緣分是怎麼開始的？ <span class="required">*</span></span>
+      <div class="checkbox-group" id="source-group">
+        <div class="checkbox-item" data-value="被品牌理念或產品吸引">
+          <div class="checkbox-mark"></div>
+          <span class="checkbox-text">被品牌理念或產品吸引</span>
+        </div>
+        <div class="checkbox-item" data-value="想在珠寶及婚戒產業累積經驗">
+          <div class="checkbox-mark"></div>
+          <span class="checkbox-text">想在珠寶及婚戒產業累積經驗</span>
+        </div>
+        <div class="checkbox-item" data-value="喜歡與人互動，熱愛服務">
+          <div class="checkbox-mark"></div>
+          <span class="checkbox-text">喜歡與人互動，熱愛服務</span>
+        </div>
+        <div class="checkbox-item" data-value="尋找新的成長與挑戰機會">
+          <div class="checkbox-mark"></div>
+          <span class="checkbox-text">尋找新的成長與挑戰機會</span>
+        </div>
+        <div class="checkbox-item" data-value="other-source" id="source-other-item">
+          <div class="checkbox-mark"></div>
+          <span class="checkbox-text">其他</span>
+        </div>
+      </div>
+      <input type="text" class="other-input" id="source-other-text" placeholder="請填寫其他原因" style="display:none;">
+      <div class="error-msg" id="err-source">⚠ 請至少選擇一項</div>
+    </div>
+
+    <!-- 應徵單位 -->
     <div class="form-group" id="group-store">
-      <label>應徵部門 / 門市 <span class="required">*</span></label>
+      <span class="field-question">你心目中最想加入 ALUXE 的單位是？ <span class="required">*</span></span>
       <select id="store">
         <option value="" disabled selected>請選擇</option>
-        <optgroup label="── 營業部">
-          <option value="營業部-acredo 信義A13門市">acredo 信義A13門市</option>
-          <option value="營業部-ALUXE 台北大安門市">ALUXE 台北大安門市</option>
-          <option value="營業部-ALUXE 台北市府門市">ALUXE 台北市府門市</option>
-          <option value="營業部-ALUXE 台北南西門市">ALUXE 台北南西門市</option>
-          <option value="營業部-ALUXE 桃園站前門市">ALUXE 桃園站前門市</option>
-          <option value="營業部-ALUXE 桃園中壢門市">ALUXE 桃園中壢門市</option>
-          <option value="營業部-ALUXE 新竹巨城門市">ALUXE 新竹巨城門市</option>
-          <option value="營業部-ALUXE 台中旗艦店">ALUXE 台中旗艦店</option>
-          <option value="營業部-ALUXE 嘉義中山門市">ALUXE 嘉義中山門市</option>
-          <option value="營業部-ALUXE 台南西門門市">ALUXE 台南西門門市</option>
-          <option value="營業部-ALUXE 高雄博愛門市">ALUXE 高雄博愛門市</option>
-          <option value="營業部-ALUXE 花蓮門市">ALUXE 花蓮門市</option>
-          <option value="營業部-JOY COLORi 台北南西門市">JOY COLORi 台北南西門市</option>
-          <option value="營業部-JOY COLORi 台北信義A8門市">JOY COLORi 台北信義A8門市</option>
-          <option value="營業部-JOY COLORi 板橋大遠百門市">JOY COLORi 板橋大遠百門市</option>
-          <option value="營業部-JOY COLORi 台中新光門市">JOY COLORi 台中新光門市</option>
-          <option value="營業部-JOY COLORi 高雄巨蛋門市">JOY COLORi 高雄巨蛋門市</option>
+        <optgroup label="── 門市據點 ──">
+          <option value="台北｜acredo 信義A13店">台北｜acredo 信義A13店</option>
+          <option value="台北｜ALUXE 南西店">台北｜ALUXE 南西店</option>
+          <option value="台北｜ALUXE 大安店">台北｜ALUXE 大安店</option>
+          <option value="台北｜ALUXE 市府店">台北｜ALUXE 市府店</option>
+          <option value="板橋｜ALUXE 文化店">板橋｜ALUXE 文化店</option>
+          <option value="桃園｜ALUXE 站前店">桃園｜ALUXE 站前店</option>
+          <option value="桃園｜ALUXE 中壢店">桃園｜ALUXE 中壢店</option>
+          <option value="新竹｜ALUXE 巨城店">新竹｜ALUXE 巨城店</option>
+          <option value="台中｜ALUXE 旗艦店">台中｜ALUXE 旗艦店</option>
+          <option value="嘉義｜ALUXE 中山店">嘉義｜ALUXE 中山店</option>
+          <option value="台南｜ALUXE 西門店">台南｜ALUXE 西門店</option>
+          <option value="高雄｜ALUXE 博愛店">高雄｜ALUXE 博愛店</option>
+          <option value="花蓮｜ALUXE 花蓮店">花蓮｜ALUXE 花蓮店</option>
+          <option value="台北｜JOY COLORi 信義A8店">台北｜JOY COLORi 信義A8店</option>
+          <option value="台北｜JOY COLORi 南西店">台北｜JOY COLORi 南西店</option>
+          <option value="板橋｜JOY COLORi 大遠百店">板橋｜JOY COLORi 大遠百店</option>
+          <option value="台中｜JOY COLORi 新光三越店">台中｜JOY COLORi 新光三越店</option>
+          <option value="高雄｜JOY COLORi 漢神店">高雄｜JOY COLORi 漢神店</option>
         </optgroup>
-        <optgroup label="── 總公司">
-          <option value="總公司-行銷部">行銷部</option>
-          <option value="總公司-商品部">商品部</option>
-          <option value="總公司-人資部">人資部</option>
+        <optgroup label="── 總公司 ──">
+          <option value="總公司｜行銷部">總公司｜行銷部</option>
+          <option value="總公司｜商品部">總公司｜商品部</option>
+          <option value="總公司｜人資部">總公司｜人資部</option>
+          <option value="總公司｜管理部">總公司｜管理部</option>
         </optgroup>
+        <option value="不限，以公司安排為主">✏️ 不限，以公司安排為主</option>
       </select>
-      <div class="error-msg" id="err-store">請選擇應徵部門 / 門市</div>
+      <div class="error-msg" id="err-store">⚠ 請選擇應徵單位</div>
     </div>
 
+    <!-- 應徵職務（單選） -->
     <div class="form-group" id="group-position">
-      <label>應徵職務 <span class="required">*</span></label>
-      <select id="position">
-        <option value="" disabled selected>請選擇</option>
-        <option value="銷售顧問">銷售顧問</option>
-        <option value="資深銷售顧問">資深銷售顧問</option>
-        <option value="品牌企劃專員">品牌企劃專員</option>
-        <option value="商品專員">商品專員</option>
-        <option value="人資專員">人資專員</option>
-      </select>
-      <div class="error-msg" id="err-position">請選擇應徵職務</div>
+      <span class="field-question">你對哪種工作內容最感興趣？ <span class="required">*</span></span>
+      <div class="radio-group" id="position-group">
+        <div class="radio-item" data-value="顧客服務與銷售｜銷售顧問">
+          <div class="radio-mark"></div>
+          <span class="radio-text">顧客服務與銷售｜銷售顧問</span>
+        </div>
+        <div class="radio-item" data-value="行銷與品牌規劃｜品牌企劃">
+          <div class="radio-mark"></div>
+          <span class="radio-text">行銷與品牌規劃｜品牌企劃</span>
+        </div>
+        <div class="radio-item" data-value="人力資源管理｜人資專員">
+          <div class="radio-mark"></div>
+          <span class="radio-text">人力資源管理｜人資專員</span>
+        </div>
+        <div class="radio-item" data-value="商品與庫存管理｜商品專員">
+          <div class="radio-mark"></div>
+          <span class="radio-text">商品與庫存管理｜商品專員</span>
+        </div>
+        <div class="radio-item" data-value="other-position" id="position-other-item">
+          <div class="radio-mark"></div>
+          <span class="radio-text">其他</span>
+        </div>
+      </div>
+      <input type="text" class="other-input" id="position-other-text" placeholder="請填寫其他興趣" style="display:none;">
+      <div class="error-msg" id="err-position">⚠ 請選擇一項</div>
     </div>
 
+    <!-- 備註 -->
     <div class="form-group">
-      <label>備註</label>
-      <textarea id="note" placeholder="如有其他想說的，歡迎填寫（選填）"></textarea>
+      <span class="field-question">還有什麼想對我們說的嗎？歡迎與我們分享！</span>
+      <textarea id="note" placeholder="選填，歡迎自由分享 :)"></textarea>
     </div>
 
-    <!-- Quiz -->
-    <div class="section-title">我們想多認識你一點 <span class="required" style="font-size:11px; text-transform:none; letter-spacing:0;">*</span></div>
-
-    <div class="quiz-intro">
-      以下 5 道情境題沒有標準答案，只是想更了解你的工作風格與個性，輕鬆作答即可 🙂
-    </div>
-
-    <div class="quiz-items-wrap">
-
-      <div class="quiz-item" id="quiz-1">
-        <p class="quiz-q"><span class="q-num">01 —</span>門市剛開店，您正在整理陳列，這時走進一位看起來有些猶豫、四處張望的客人，您會？</p>
-        <div class="quiz-options" id="opts-q1">
-          <div class="quiz-option" data-name="q1" data-value="A">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">放下手邊工作，主動走過去打招呼問需求</span>
-          </div>
-          <div class="quiz-option" data-name="q1" data-value="B">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">先繼續整理，保持微笑目光接觸，等對方有需要再上前</span>
-          </div>
-        </div>
-        <div class="quiz-error" id="err-q1">⚠ 此題為必填，請選擇一個選項</div>
-      </div>
-
-      <div class="quiz-item" id="quiz-2">
-        <p class="quiz-q"><span class="q-num">02 —</span>店長交代您負責一項新的陳列任務，但沒有給詳細說明，您會？</p>
-        <div class="quiz-options" id="opts-q2">
-          <div class="quiz-option" data-name="q2" data-value="A">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">請店長給我具體的步驟或範例，確認清楚再執行</span>
-          </div>
-          <div class="quiz-option" data-name="q2" data-value="B">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">根據品牌風格自己發揮，做完再請店長確認調整</span>
-          </div>
-        </div>
-        <div class="quiz-error" id="err-q2">⚠ 此題為必填，請選擇一個選項</div>
-      </div>
-
-      <div class="quiz-item" id="quiz-3">
-        <p class="quiz-q"><span class="q-num">03 —</span>一位客人因為等待時間過長而情緒激動地抱怨，您的第一句話會是？</p>
-        <div class="quiz-options" id="opts-q3">
-          <div class="quiz-option" data-name="q3" data-value="A">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">「不好意思，目前等待時間約 XX 分鐘，我幫您安排…」</span>
-          </div>
-          <div class="quiz-option" data-name="q3" data-value="B">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">「非常抱歉讓您久等了，我完全理解您的心情…」</span>
-          </div>
-        </div>
-        <div class="quiz-error" id="err-q3">⚠ 此題為必填，請選擇一個選項</div>
-      </div>
-
-      <div class="quiz-item" id="quiz-4">
-        <p class="quiz-q"><span class="q-num">04 —</span>活動前一天，店長臨時通知明天需要提早一小時到班支援，您的感受是？</p>
-        <div class="quiz-options" id="opts-q4">
-          <div class="quiz-option" data-name="q4" data-value="A">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">有點困擾，因為我已經規劃好明天的時間了</span>
-          </div>
-          <div class="quiz-option" data-name="q4" data-value="B">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">沒問題，臨時調整對我來說還好，彈性應對就好</span>
-          </div>
-        </div>
-        <div class="quiz-error" id="err-q4">⚠ 此題為必填，請選擇一個選項</div>
-      </div>
-
-      <div class="quiz-item" id="quiz-5">
-        <p class="quiz-q"><span class="q-num">05 —</span>忙碌的一天結束後，同事邀請大家一起去吃飯聊天，您通常會？</p>
-        <div class="quiz-options" id="opts-q5">
-          <div class="quiz-option" data-name="q5" data-value="A">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">很樂意！和大家聚一聚反而讓我放鬆有活力</span>
-          </div>
-          <div class="quiz-option" data-name="q5" data-value="B">
-            <div class="quiz-radio-mark"></div>
-            <span class="quiz-option-text">謝謝邀請，但我更想一個人安靜休息，恢復能量</span>
-          </div>
-        </div>
-        <div class="quiz-error" id="err-q5">⚠ 此題為必填，請選擇一個選項</div>
-      </div>
-
-    </div>
-
+    <!-- 送出 -->
     <div class="btn-wrap">
       <button class="btn-submit" id="btn" onclick="submitForm()">
-        <span id="btn-text">送出並加入 LINE</span>
+        <span id="btn-text">送出～我準備好了！</span>
         <div class="spinner" id="spinner"></div>
       </button>
       <p class="btn-note">送出後將自動跳轉至 ALUXE LINE 官方帳號</p>
     </div>
   </div>
 
+  <!-- Success -->
   <div class="success-screen" id="success">
     <div class="success-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <polyline points="20 6 9 17 4 12"/>
       </svg>
     </div>
-    <h2 class="success-title">感謝您的填寫</h2>
+    <h2 class="success-title">感謝你的填寫</h2>
     <p class="success-desc">
-      您的資料已成功送出<br>
-      正在引導您加入 ALUXE LINE 官方帳號…
+      資料已成功送出<br>
+      正在引導你加入 ALUXE LINE 官方帳號…
     </p>
     <p class="success-countdown" id="countdown">3 秒後自動跳轉</p>
   </div>
@@ -537,29 +540,54 @@
 
   <script>
     // =============================
-    // 🔒 設定區（請修改以下兩處）
+    // 🔒 設定區
     // =============================
     const SECRET_TOKEN    = 'aluxe2026hr';
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgufr_IqJzlMeVXZRAuLz_fuK3GhOCrAPLM1Ko8mP6vpmlU-y_4ZAW830Ut4xVfplf/exec'; // ⚠️ 貼上 Apps Script 部署網址
-    const LINE_URL        = 'https://lin.ee/9MrIQWM'; // ✅ 已設定
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwgufr_IqJzlMeVXZRAuLz_fuK3GhOCrAPLM1Ko8mP6vpm1U-y_4ZAW830Ut4xVfplf/exec';
+    const LINE_URL        = 'https://lin.ee/9MrIQWM';
     // =============================
 
-    // 儲存各題答案
-    const quizAnswers = { q1: '', q2: '', q3: '', q4: '', q5: '' };
-
-    // 綁定選項點擊事件
-    document.querySelectorAll('.quiz-option').forEach(function(el) {
+    // ── 複選：緣分來源 ──
+    const sourceChecked = new Set();
+    document.querySelectorAll('#source-group .checkbox-item').forEach(function(el) {
       el.addEventListener('click', function() {
-        const name  = this.dataset.name;
-        const value = this.dataset.value;
-        // 清除同題其他選項
-        document.querySelectorAll('.quiz-option[data-name="' + name + '"]')
-          .forEach(function(s) { s.classList.remove('selected'); });
+        const val = this.dataset.value;
+        if (this.classList.contains('checked')) {
+          this.classList.remove('checked');
+          sourceChecked.delete(val);
+          if (val === 'other-source') {
+            document.getElementById('source-other-text').style.display = 'none';
+          }
+        } else {
+          this.classList.add('checked');
+          sourceChecked.add(val);
+          if (val === 'other-source') {
+            document.getElementById('source-other-text').style.display = 'block';
+            document.getElementById('source-other-text').focus();
+          }
+        }
+        if (sourceChecked.size > 0) {
+          document.getElementById('group-source').classList.remove('has-error');
+        }
+      });
+    });
+
+    // ── 單選：應徵職務 ──
+    let positionSelected = '';
+    document.querySelectorAll('#position-group .radio-item').forEach(function(el) {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('#position-group .radio-item').forEach(function(s) {
+          s.classList.remove('selected');
+        });
         this.classList.add('selected');
-        quizAnswers[name] = value;
-        // 清除錯誤狀態
-        const qNum = name.replace('q', '');
-        document.getElementById('quiz-' + qNum).classList.remove('has-error');
+        positionSelected = this.dataset.value;
+        if (positionSelected === 'other-position') {
+          document.getElementById('position-other-text').style.display = 'block';
+          document.getElementById('position-other-text').focus();
+        } else {
+          document.getElementById('position-other-text').style.display = 'none';
+        }
+        document.getElementById('group-position').classList.remove('has-error');
       });
     });
 
@@ -570,17 +598,16 @@
     function validate() {
       let valid = true;
 
-      const name  = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const store = document.getElementById('store').value;
-      const pos   = document.getElementById('position').value;
-
+      // 姓名
+      const name = document.getElementById('name').value.trim();
       if (!name) {
         showError('group-name', true);
         document.getElementById('err-name').textContent = '⚠ 請填寫姓名';
         valid = false;
       } else { showError('group-name', false); }
 
+      // 手機
+      const phone = document.getElementById('phone').value.trim();
       const phoneRegex = /^09\d{8}$/;
       if (!phone) {
         showError('group-phone', true);
@@ -592,32 +619,46 @@
         valid = false;
       } else { showError('group-phone', false); }
 
-      if (!store) { showError('group-store', true); valid = false; }
-      else { showError('group-store', false); }
+      // 目前職業
+      const currentJob = document.getElementById('current_job').value.trim();
+      if (!currentJob) {
+        showError('group-current-job', true);
+        valid = false;
+      } else { showError('group-current-job', false); }
 
-      if (!pos) { showError('group-position', true); valid = false; }
-      else { showError('group-position', false); }
+      // 形容詞
+      const adjective = document.getElementById('adjective').value.trim();
+      if (!adjective) {
+        showError('group-adjective', true);
+        valid = false;
+      } else { showError('group-adjective', false); }
 
-      ['q1','q2','q3','q4','q5'].forEach(function(q, i) {
-        const el = document.getElementById('quiz-' + (i + 1));
-        if (!quizAnswers[q]) {
-          el.classList.add('has-error');
-          valid = false;
-        } else {
-          el.classList.remove('has-error');
-        }
-      });
+      // 緣分來源（複選，至少一項）
+      if (sourceChecked.size === 0) {
+        showError('group-source', true);
+        valid = false;
+      } else { showError('group-source', false); }
+
+      // 應徵單位
+      const store = document.getElementById('store').value;
+      if (!store) {
+        showError('group-store', true);
+        valid = false;
+      } else { showError('group-store', false); }
+
+      // 應徵職務（單選）
+      if (!positionSelected) {
+        showError('group-position', true);
+        valid = false;
+      } else { showError('group-position', false); }
 
       return valid;
     }
 
     async function submitForm() {
       if (!validate()) {
-        // 捲動到第一個錯誤並停留在中央
         const firstErr = document.querySelector('.has-error');
-        if (firstErr) {
-          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
         return;
       }
 
@@ -628,19 +669,35 @@
       btnText.style.display = 'none';
       spinner.style.display = 'block';
 
+      // 整理複選答案
+      let sourceArr = [];
+      sourceChecked.forEach(function(v) {
+        if (v === 'other-source') {
+          const otherText = document.getElementById('source-other-text').value.trim();
+          if (otherText) sourceArr.push('其他：' + otherText);
+          else sourceArr.push('其他');
+        } else {
+          sourceArr.push(v);
+        }
+      });
+
+      // 整理職務答案
+      let positionFinal = positionSelected;
+      if (positionSelected === 'other-position') {
+        const otherPos = document.getElementById('position-other-text').value.trim();
+        positionFinal = otherPos ? '其他：' + otherPos : '其他';
+      }
+
       const payload = {
         token:       SECRET_TOKEN,
         name:        document.getElementById('name').value.trim(),
         phone:       document.getElementById('phone').value.trim(),
-        store:       document.getElementById('store').value,
-        position:    document.getElementById('position').value,
         current_job: document.getElementById('current_job').value.trim(),
-        note:        document.getElementById('note').value.trim(),
-        q1: quizAnswers.q1,
-        q2: quizAnswers.q2,
-        q3: quizAnswers.q3,
-        q4: quizAnswers.q4,
-        q5: quizAnswers.q5
+        adjective:   document.getElementById('adjective').value.trim(),
+        source:      sourceArr.join('、'),
+        store:       document.getElementById('store').value,
+        position:    positionFinal,
+        note:        document.getElementById('note').value.trim()
       };
 
       try {
@@ -661,7 +718,7 @@
     }
 
     // 即時清除基本欄位錯誤
-    ['name','phone','store','position'].forEach(function(id) {
+    ['name', 'phone', 'current_job', 'adjective', 'store'].forEach(function(id) {
       const el = document.getElementById(id);
       if (el) {
         el.addEventListener('input',  validate);
